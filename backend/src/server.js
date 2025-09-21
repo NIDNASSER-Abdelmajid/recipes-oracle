@@ -2,9 +2,13 @@ import express from 'express';
 import { ENV } from './config/env.js';
 import { db } from './config/db.js';
 import { favoritsTable } from './db/schema.js';
+import job from './cron/job.js';
 
 const app = express();
 const PORT = ENV.PORT || 5001;
+
+if (ENV.NODE_ENV === 'production') job.start();
+
 
 app.use(express.json());
 
